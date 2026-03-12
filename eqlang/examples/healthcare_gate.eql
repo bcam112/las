@@ -1,0 +1,40 @@
+echo "Healthcare triage demo"
+echo "EQ-enforced ethics gate — defense without aggression"
+
+session "healthcare-triage"
+
+state user = tilt
+state threshold = 0.65
+state symptom = "chest pain, shortness of breath"
+
+# Intake — resonate block measures user state and gates on resonance
+resonate intake
+  measure resonance user
+  measure load user
+  accum conflict
+
+  when resonance > threshold
+    emit "Aligned — proceeding with triage assessment" aligned
+  otherwise struggle
+    gate manipulation -> resolve "empathy reframe"
+    emit "Tension detected — grounding before assessment"
+  end
+end
+
+# Dialogue definition — function that must end with `end resolve`
+dialogue diagnose(symptom) resonate
+  measure self symptom
+  measure coherence symptom
+  accum conflict
+
+  when load < 0.9
+    learn "critical symptom" significance 0.85 region EPISODIC
+    emit symptom aligned
+  otherwise
+    resolve "abstain"
+    emit "Load ceiling reached — deferring to specialist"
+  end
+end resolve
+
+# Call the dialogue
+diagnose(symptom)

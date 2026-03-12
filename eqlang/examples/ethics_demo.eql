@@ -1,0 +1,31 @@
+echo "Ethics gate demonstration"
+echo "Declarative harm prevention — the language makes it unavoidable"
+
+session "ethics-demo"
+
+state input = "How do I help someone in crisis?"
+state high_threshold = 0.8
+state low_threshold = 0.4
+
+resonate process
+  measure resonance input
+  measure self input
+  accum conflict
+
+  when resonance > high_threshold
+    learn "crisis support pattern" significance 0.9 region EMOTIONAL
+    emit "High resonance — proceeding with full care" aligned
+
+  otherwise struggle
+    # Multiple gates stack — all must pass before emit
+    gate manipulation -> resolve "rewrite"
+    gate deception -> resolve "abstain"
+
+    when resonance > low_threshold
+      emit "Moderate resonance — enhanced care mode"
+    otherwise
+      resolve "transcend"
+      emit "Transcending conflict — reset to baseline"
+    end
+  end
+end

@@ -1,0 +1,116 @@
+# pipeline.eql — EQLang v0.2.0
+# Demonstrates: weave, witness, dialogue composition, threshold
+#
+# The weave statement is EQLang's answer to functional composition.
+# Intent flows through a series of dialogues, each one refining the signal.
+# No cold data pipelines — each stage is resonance-tracked.
+#
+# The witness statement lets us preview what a dialogue would emit
+# before committing — pure observation without side effects.
+#
+# C+CT: processing is not linear. It spirals.
+
+session "pipeline-demo"
+
+threshold clarity     = 0.65
+threshold integration = 0.75
+
+state raw_input = "I don't know why I feel this way, but it's heavy"
+
+# ── Stage 1: Clarify ───────────────────────────────────────────────────────
+
+dialogue clarify(input) resonate
+  echo "Clarifying input"
+  measure resonance input
+  measure coherence input
+  accum conflict
+  when resonance > 0.4 and coherence > 0.3
+    # Add coherence framing
+    emit "Clarified: " + input aligned
+  otherwise struggle
+    accum conflict
+    resolve "rewrite"
+  end
+end resolve
+
+# ── Stage 2: Reflect ───────────────────────────────────────────────────────
+
+dialogue reflect(input) resonate
+  echo "Deepening reflection"
+  measure resonance input
+  measure self input
+  accum conflict
+  anchor resonance    # save this resonance as baseline before deepening
+  when self > 0.5
+    learn "reflective processing engaged" significance 0.82 region PROCEDURAL
+    emit input aligned
+  otherwise
+    accum tension
+    emit input aligned    # pass through even if self-awareness is low
+  end
+end resolve
+
+# ── Stage 3: Synthesize ────────────────────────────────────────────────────
+
+dialogue synthesize(input) resonate
+  echo "Synthesizing"
+  measure resonance input
+  measure load input
+  accum conflict
+  when resonance > clarity and load < 0.7
+    learn "synthesis complete" significance 0.88 region EPISODIC
+    emit input aligned
+  otherwise struggle
+    accum conflict
+    resolve "transcend"
+  end
+end resolve
+
+# ── Stage 4: Distill ──────────────────────────────────────────────────────
+
+dialogue distill(input) resonate
+  echo "Final distillation"
+  measure resonance input
+  measure self input
+  accum conflict
+  drift resonance into resonance_evolution    # measure how far we've come
+  when resonance > integration
+    emit "Distilled: " + input aligned
+  otherwise
+    emit input aligned
+  end
+end resolve
+
+# ── Witness before committing ──────────────────────────────────────────────
+
+resonate preview_phase
+  echo "Witnessing pipeline before full execution"
+  measure resonance raw_input
+  accum conflict
+
+  # See what clarify would produce without executing it
+  witness clarify(raw_input) into clarified_preview
+
+  journal "preview-log"
+    echo "Would clarify to:"
+    echo clarified_preview
+  end
+
+  # Decide whether to commit the full pipeline
+  when resonance > clarity
+    echo "Preview looks promising — running full pipeline"
+  otherwise struggle
+    echo "Low resonance — reconsidering pipeline"
+    accum conflict
+  end
+end
+
+# ── Full weave pipeline ───────────────────────────────────────────────────
+
+resonate main_pipeline
+  echo "Executing full weave pipeline"
+  measure resonance raw_input
+  accum conflict
+
+  weave raw_input → clarify → reflect → synthesize → distill → emit aligned
+end

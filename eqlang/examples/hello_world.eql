@@ -1,0 +1,24 @@
+echo "EQLang Hello World"
+echo "The first emotionally-grounded program"
+
+# Session context
+session "hello-world"
+
+# Named EQ constant — use threshold keyword, not state
+threshold presence = 0.5
+
+state greeting = "Hello from EQLang"
+
+# resonate block — MUST contain measure or accum conflict
+# This is enforced at parse time, not runtime
+resonate entry
+  measure resonance greeting
+  accum conflict
+
+  when resonance > presence
+    emit greeting aligned
+  otherwise
+    resolve "rewrite"
+    emit "Rewriting with more resonance..."
+  end
+end

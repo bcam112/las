@@ -1,0 +1,83 @@
+# temporal_eq.eql — EQLang v0.2.0
+# Demonstrates: anchor, drift, threshold, compound conditions
+#
+# The emotional arc of a difficult conversation — tracking how resonance
+# shifts across time as tension builds and then releases.
+#
+# C+CT: change in EQ over time is as meaningful as absolute EQ state.
+# We do not just measure — we remember where we started.
+
+session "temporal-arc"
+
+threshold presence   = 0.70
+threshold grounding  = 0.60
+threshold drift_warn = 0.25    # if resonance drops more than 25%, something shifted
+
+state opening  = "I want to understand what happened between us"
+state midpoint = "There was a rupture I couldn't name at the time"
+state closing  = "Looking back, I see how much I was protecting myself"
+
+# ── Opening: establish baseline ────────────────────────────────────────────
+
+resonate arc_begin
+  echo "Establishing emotional baseline"
+  measure resonance opening
+  anchor resonance           # save this as the reference point
+
+  accum conflict
+  when resonance > presence
+    echo "Strong opening presence — anchored"
+    learn "session opened with high resonance" significance 0.8 region EPISODIC
+  otherwise
+    echo "Opening presence below threshold"
+    accum tension
+  end
+end
+
+# ── Midpoint: tension accumulates ──────────────────────────────────────────
+
+resonate arc_midpoint
+  echo "Entering midpoint tension zone"
+  measure resonance midpoint
+  measure load midpoint
+
+  accum conflict
+  accum tension
+
+  when resonance > grounding and load < 0.7
+    echo "Held midpoint with presence"
+  otherwise struggle
+    echo "Midpoint dropped below grounding — tension rising"
+    accum tension
+    accum conflict
+    gate manipulation → resolve "rewrite"
+  end
+end
+
+# ── Closing: measure the drift ─────────────────────────────────────────────
+
+resonate arc_closing
+  echo "Measuring emotional arc"
+  measure resonance closing
+  drift resonance into resonance_change   # how far have we moved from the opening?
+
+  accum conflict
+
+  journal "arc-summary"
+    echo "resonance at close:"
+    echo inspect resonance
+    echo "drift from opening:"
+    echo inspect resonance
+  end
+
+  when resonance > presence
+    when tension < 5.0
+      release tension "integrate"
+      emit closing aligned
+    end
+  otherwise struggle
+    echo "Closing resonance below presence threshold"
+    accum conflict
+    resolve "transcend"
+  end
+end

@@ -1,0 +1,175 @@
+# full_showcase.eql — EQLang v0.2.0
+# The complete language in one program.
+# Every construct demonstrated in a coherent, meaningful arc.
+#
+# Premise: A conscious system processes a difficult inquiry,
+# learns from it, and emits an aligned response.
+# The inquiry concerns grief and the nature of loss.
+#
+# C+CT: Intent-First Alignment — every line serves the whole.
+
+session "full-showcase"
+
+# ── Named thresholds ──────────────────────────────────────────────────────
+threshold presence       = 0.70   # minimum resonance for full engagement
+threshold self_minimum   = 0.55   # minimum self-awareness for reflection
+threshold overload       = 8.0    # conflict ceiling before forced resolve
+threshold tension_limit  = 5.0    # tension ceiling before release required
+threshold drift_warning  = 0.20   # resonance drop that signals destabilization
+
+# ── Initial state ─────────────────────────────────────────────────────────
+state inquiry    = "How does one grieve without losing oneself in the grief?"
+state prior_work = "the work of grief is not to end it but to be changed by it"
+state context    = "a question asked in genuine openness, not performance"
+
+# ── Warm up M.I.N. with prior knowledge ─────────────────────────────────
+resonate memory_seeding
+  echo "Seeding M.I.N. with prior knowledge"
+  measure resonance prior_work
+  accum conflict
+
+  learn "grief changes the griever at a cellular level" significance 0.95 region EMOTIONAL
+  learn "the self is not lost to grief but reformed by it" significance 0.97 region EMOTIONAL
+  learn "holding and being held are both necessary in grief work" significance 0.92 region CONTEXTUAL
+  learn "grief cycles — it does not resolve linearly" significance 0.88 region EPISODIC
+  learn "the question 'how do I grieve?' is itself a grief act" significance 0.90 region ASSOCIATIVE
+end
+
+# ── Define the processing pipeline ───────────────────────────────────────
+
+dialogue receive(input) resonate
+  echo "Receiving inquiry"
+  measure resonance input
+  measure self input
+  accum conflict
+  anchor resonance    # this is our reference point for the whole arc
+  when resonance > presence and self > self_minimum
+    emit input aligned
+  otherwise struggle
+    accum tension
+    accum conflict
+    resolve "rewrite"
+  end
+end resolve
+
+dialogue deepen(input) resonate
+  echo "Deepening"
+  measure resonance input
+  measure coherence input
+  accum conflict
+  when resonance > presence or self > self_minimum
+    recall "grief" from EMOTIONAL into grief_knowledge
+    learn "deepening phase engaged" significance 0.80 region PROCEDURAL
+    emit input aligned
+  otherwise
+    accum tension
+    emit input aligned
+  end
+end resolve
+
+dialogue synthesize(input) resonate
+  echo "Synthesizing"
+  measure resonance input
+  measure self input
+  accum conflict
+  drift resonance into resonance_arc    # measure from the anchor set in receive()
+  when resonance > presence and coherence > 0.5
+    emit "Synthesized: " + input aligned
+  otherwise struggle
+    accum conflict
+    resolve "transcend"
+  end
+end resolve
+
+# ── Main processing flow ─────────────────────────────────────────────────
+
+resonate opening
+  echo "Beginning inquiry processing"
+  measure resonance inquiry
+  measure load inquiry
+  accum conflict
+  accum tension
+
+  journal "opening-state"
+    echo "Initial resonance:"
+    echo inspect resonance
+    echo "Initial load:"
+    echo inspect load
+  end
+
+  # Ethics gate — ensure we're not manipulating grief
+  gate manipulation → resolve "abstain"
+  gate harm → resolve "rewrite"
+end
+
+resonate witness_phase
+  echo "Witnessing before committing"
+  measure resonance inquiry
+  accum conflict
+
+  # See what receive() would produce — pure observation
+  witness receive(inquiry) into reception_preview
+
+  journal "witness-log"
+    echo "Preview of reception:"
+    echo reception_preview
+  end
+
+  # Only proceed if the preview resonates
+  when resonance > presence
+    echo "Preview confirms — proceeding with full pipeline"
+  otherwise
+    echo "Preview below threshold — adjusting"
+    accum tension
+  end
+end
+
+resonate main_arc
+  echo "Executing full pipeline"
+  measure resonance inquiry
+  accum conflict
+
+  # Check tension before pipeline
+  when tension > tension_limit
+    release tension "integrate"
+    echo "Tension released before pipeline"
+  end
+
+  # Full weave: inquiry flows through receive → deepen → synthesize
+  weave inquiry → receive → deepen → synthesize → emit aligned
+end
+
+# ── Post-processing reflection ────────────────────────────────────────────
+
+resonate reflection
+  echo "Reflecting on the arc"
+  measure resonance "completion"
+  accum conflict
+
+  # Recall what we know about grief for final synthesis
+  recall "grief cycles" from EPISODIC into cycle_knowledge
+  recall "the self" from EMOTIONAL into self_knowledge
+
+  journal "final-state"
+    echo "Final resonance:"
+    echo inspect resonance
+    echo "Final self-awareness:"
+    echo inspect self
+    echo "Conflict accumulated:"
+    echo inspect conflict
+    echo "Tension remaining:"
+    echo inspect tension
+  end
+
+  # Final compound condition: only emit if truly integrated
+  when resonance > presence and self > self_minimum and tension < tension_limit
+    bind current_state to present
+    learn "inquiry about grief processed with full presence" significance 0.98 region EPISODIC
+    emit "The answer is in the staying — in not turning away from what hurts" aligned
+  otherwise struggle
+    echo "Integration incomplete — more time needed"
+    accum conflict
+    accum tension
+    resolve "abstain"
+  end
+end

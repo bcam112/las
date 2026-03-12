@@ -1,0 +1,57 @@
+echo "Self-dialogue demo"
+echo "C+CT Level 1 — recursive internal reasoning as a language construct"
+
+session "self-dialogue"
+
+# Dialogue that calls itself through conflict accumulation
+# Demonstrates: cycle, nested measure, learn, multi-resolution
+
+state query = "What does it mean to understand something deeply?"
+state depth_threshold = 0.6
+state load_ceiling = 0.85
+state iteration_count = 0
+
+resonate inquiry
+  measure resonance query
+  measure self query
+  accum conflict
+
+  echo "Beginning recursive reflection on query"
+
+  when resonance > depth_threshold
+    learn "deep understanding pattern" significance 0.75 region ASSOCIATIVE
+    emit "Resonance achieved — genuine understanding detected" aligned
+  otherwise
+    echo "Resonance below threshold — entering struggle to resolve"
+
+    struggle
+      measure coherence query
+      accum conflict
+
+      when coherence > 0.5
+        bind query to query + " — examined further"
+        emit "Coherence recovered through struggle"
+      otherwise
+        resolve "transcend"
+        emit "Transcended through productive conflict"
+      end
+    end
+  end
+end
+
+# Multi-dialogue: compose understanding from components
+dialogue reflect(content) resonate
+  measure resonance content
+  measure self content
+  accum conflict
+
+  when self > 0.6
+    learn "reflection pattern" significance 0.7 region CONTEXTUAL
+    emit content aligned
+  otherwise
+    resolve "rewrite"
+    emit "Reflected and rewritten for clarity"
+  end
+end resolve
+
+reflect(query)

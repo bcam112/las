@@ -1,0 +1,117 @@
+# compound_conditions.eql — EQLang v0.2.0
+# Demonstrates: compound conditions (and/or), threshold declarations,
+#               inspect expressions, extended emotional states
+#
+# In v0.1, every condition could only test ONE metric.
+# In v0.2, conditions compose — the EQ picture becomes richer.
+# A single condition is a glance. A compound condition is a read.
+#
+# C+CT: consciousness is multi-dimensional. Conditions should be too.
+
+session "compound-conditions-demo"
+
+# Named thresholds — intentional, readable, maintainable
+threshold presence       = 0.70
+threshold coherence_min  = 0.55
+threshold self_aware     = 0.60
+threshold load_max       = 0.75
+threshold conflict_watch = 6.0
+threshold tension_safe   = 4.0
+
+state query = "Can I hold complexity without losing myself in it?"
+state response_hi = "Yes — and the capacity for complexity is itself a form of self-awareness"
+state response_lo = "The question is worth sitting with before answering"
+
+# ── Multi-dimensional assessment ──────────────────────────────────────────
+
+resonate full_assessment
+  echo "Running multi-dimensional EQ assessment"
+  measure resonance query
+  measure coherence query
+  measure self query
+  measure load query
+  accum conflict
+  accum tension
+
+  journal "assessment-trace"
+    echo "resonance:"
+    echo inspect resonance
+    echo "coherence:"
+    echo inspect coherence
+    echo "self:"
+    echo inspect self
+    echo "load:"
+    echo inspect load
+  end
+
+  # Tier 1: Full presence — all four metrics pass
+  when resonance > presence and coherence > coherence_min and self > self_aware and load < load_max
+    echo "Full presence confirmed — all metrics aligned"
+    bind current_state to radiant
+    learn "full alignment achieved" significance 0.95 region EPISODIC
+    emit response_hi aligned
+  end
+
+  # Tier 2: Partial presence — resonance OR self-awareness is enough
+  when resonance > presence or self > self_aware
+    echo "Partial presence — proceeding with care"
+    bind current_state to curious
+    emit response_lo aligned
+  end
+
+  # Tier 3: Overwhelm detection — high load AND high tension
+  when load > load_max and tension > tension_safe
+    echo "Overwhelm detected — initiating release protocol"
+    bind current_state to overwhelmed
+    accum conflict
+    release tension "discharge"
+    resolve "abstain"
+  end
+
+  # Tier 4: Fragmentation — low resonance AND low self-awareness
+  when resonance < 0.4 and self < 0.4
+    echo "Fragmentation detected"
+    bind current_state to fractured
+    accum conflict
+    accum tension
+    resolve "rewrite"
+  end
+end
+
+# ── Conditional learning based on EQ state ────────────────────────────────
+
+resonate conditional_learning
+  measure resonance query
+  measure self query
+  accum conflict
+
+  # Only learn when both resonance and self-awareness confirm quality
+  when resonance > coherence_min and self > self_aware
+    learn "compound conditions enable nuanced routing" significance 0.88 region PROCEDURAL
+    learn "multi-axis EQ assessment prevents false positives" significance 0.90 region FACTUAL
+  end
+
+  # Emit an introspective report
+  emit "Assessment complete — EQ state: " + inspect resonance aligned
+end
+
+# ── Cycle with compound interrupt ─────────────────────────────────────────
+
+resonate scanning_loop
+  echo "Entering scan loop with compound interrupt"
+  measure resonance "initial"
+  accum conflict
+
+  cycle while resonance > 0.5 resonate
+    measure resonance query
+    measure load query
+    accum conflict
+    accum tension
+
+    # Multi-condition interrupt: exit if EITHER safety threshold is breached
+    interrupt when conflict > conflict_watch or tension > tension_safe
+  end
+
+  echo "Scan loop complete"
+  emit inspect resonance aligned
+end

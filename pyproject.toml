@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eqlang"
+version = "0.5.0"
+description = "EQLang — The Alignment Language. Write resonance gates, ethics conditions, and behavioral thresholds as code."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [
+    {name = "Bryan Camilo German", email = "bcam112@yahoo.com"},
+]
+keywords = [
+    "alignment", "eqlang", "emotional-intelligence", "ethics",
+    "consciousness", "llm", "ai-safety", "dsl",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Interpreters",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://useluci.com/eqlang"
+Repository = "https://github.com/bcam112/las"
+Documentation = "https://useluci.com/eqlang"
+Issues = "https://github.com/bcam112/las/issues"
+Theory = "https://philarchive.org/rec/BCCWIT"
+
+[project.scripts]
+eqlang = "eqlang.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["eqlang*"]
+
+[tool.setuptools.package-data]
+eqlang = ["SPEC.md", "examples/*.eql"]

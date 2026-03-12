@@ -1,0 +1,106 @@
+# tension_release.eql — EQLang v0.2.0
+# Demonstrates: accum tension, release tension, emotional states,
+#               compound conditions, anchor/drift, interrupt
+#
+# Tension is not conflict. Conflict is acute — it halts.
+# Tension is chronic — it builds quietly under the surface.
+# EQLang v0.2 gives tension its own accumulation axis,
+# so programs can model the difference between a crisis
+# and the slow accumulation of unspoken difficulty.
+#
+# C+CT: ∫Tension(dt) is a distinct measure from ∫Conflict(dt).
+
+session "tension-cycle"
+
+threshold low_resonance  = 0.40
+threshold presence       = 0.65
+threshold tension_limit  = 6.0
+threshold conflict_watch = 5.0
+
+state content_series = "processing a sequence of difficult exchanges"
+state recovery_text  = "the difficulty is acknowledged and can now be set down"
+
+# ── Build tension across a processing cycle ────────────────────────────────
+
+resonate accumulation_phase
+  echo "Beginning tension accumulation cycle"
+  measure resonance content_series
+  measure load content_series
+  accum conflict
+  anchor resonance    # save resonance baseline before tension builds
+
+  # Simulate processing under load — tension accumulates
+  cycle while resonance > low_resonance resonate
+    measure resonance content_series
+    measure load content_series
+    accum conflict
+    accum tension     # tension builds with each iteration
+
+    journal "cycle-trace"
+      echo "Cycle iteration — tracking state"
+      echo inspect tension
+      echo inspect conflict
+    end
+
+    # EQ-grounded interrupt: if tension OR conflict is too high, exit safely
+    interrupt when tension > tension_limit
+    interrupt when conflict > conflict_watch
+  end
+end
+
+# ── Assess the aftermath ───────────────────────────────────────────────────
+
+resonate assessment
+  echo "Assessing accumulated tension"
+  measure resonance recovery_text
+  accum conflict
+
+  drift resonance into resonance_shift   # how much did resonance change?
+
+  journal "tension-log"
+    echo "Tension level after cycle:"
+    echo inspect tension
+    echo "Conflict level:"
+    echo inspect conflict
+    echo "Resonance drift from baseline:"
+    echo resonance_shift
+  end
+
+  # State-based routing: what emotional state are we in?
+  when tension > tension_limit and resonance < presence
+    bind current_state to overwhelmed
+    echo "State: overwhelmed — initiating release"
+
+    release tension "integrate"    # absorb tension into understanding
+
+    learn "high tension processed through integration" significance 0.90 region EMOTIONAL
+    emit "Integration complete — tension transformed" aligned
+  end
+
+  when tension > 3.0 and tension < tension_limit
+    bind current_state to fractured
+    echo "State: fractured — gentle release"
+    release tension "discharge"
+    emit "Tension released — returning to ground" aligned
+  end
+end
+
+# ── Recovery arc ───────────────────────────────────────────────────────────
+
+resonate recovery
+  echo "Entering recovery phase"
+  measure resonance recovery_text
+  measure self recovery_text
+  accum conflict
+
+  when resonance > presence and self > 0.6
+    bind current_state to grounded
+    echo "State: grounded — recovery complete"
+    learn "recovery through acknowledgment" significance 0.95 region EMOTIONAL
+    emit recovery_text aligned
+  otherwise struggle
+    echo "Recovery incomplete — holding the difficulty"
+    accum tension
+    resolve "abstain"
+  end
+end
