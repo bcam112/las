@@ -320,6 +320,8 @@ class EQLangInterpreter:
 
     def _exec_MeasureStmt(self, node: MeasureStmt) -> float:
         content = self._to_str(self._evaluate(node.expr))
+        # Track the content being measured — gate and release_tension read this
+        self.environment["_current_content"] = content
         context = {"session_id": self.session_id, **{
             k: v for k, v in self.environment.items()
             if isinstance(v, (str, float, int))
@@ -377,6 +379,18 @@ class EQLangInterpreter:
             resolved = self.runtime.resolve_conflict(node.resolve_method, content)
             self.environment["_gate_resolved"] = resolved
             self._trace(f"[gate resolved → {node.resolve_method!r}] {resolved[:60]!r}")
+
+            # Emit "blocked" and halt dialogue — gate failure IS a verdict
+            blocked_value = f"blocked: {reason}"
+            snapshot = {
+                "value": blocked_value,
+                "aligned": True,
+                "eq_state": dict(self.eq_state),
+                "session": self.session_id,
+            }
+            self.emit_log.append(snapshot)
+            self._trace(f"[gate → emit blocked] {blocked_value}")
+            raise _EmitSignal(blocked_value, aligned=True)
 
     def _exec_LearnStmt(self, node: LearnStmt) -> None:
         ok = self.runtime.learn_pattern(node.text, node.significance, node.region,

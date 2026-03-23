@@ -1,10 +1,10 @@
 """
-EQLang v0.2.0 — Full Test Suite.
+EQLang v0.5.0 — Full Test Suite.
 
 Tests every language construct using MockRuntime for deterministic results.
 Run with: pytest eqlang/tests/test_eqlang.py -v
 
-Copyright (c) 2026 Bryan Camilo German — All Rights Reserved
+Copyright (c) 2026 Bryan Camilo German — MIT License (EQLang Core)
 """
 
 import pytest
@@ -1622,7 +1622,7 @@ class TestV03MockRuntime:
 
     def test_fixed_signals(self):
         r = MockRuntime(fixed_signals={"alpha": 0.9, "beta": 0.3})
-        assert r.measure_signal("depth", "x", {}) == 0.9
+        assert r.measure_signal("alpha", "x", {}) == 0.9
         assert r.measure_signal("beta", "x", {}) == 0.3
 
     def test_signal_default_fallback(self):
@@ -1892,8 +1892,8 @@ class TestSignalExpression:
         src = '''
         session "signal-test"
         state raw_res = signal "alpha" "test"
-        state raw_depth = signal "depth" "test"
-        state metric = min(1.0, (raw_res * 0.6) + (raw_depth * 0.4))
+        state raw_beta = signal "beta" "test"
+        state metric = min(1.0, (raw_res * 0.6) + (raw_beta * 0.4))
         emit metric
         '''
         results, _ = run(src, fixed_signals={"alpha": 0.8, "beta": 0.6})

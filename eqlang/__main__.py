@@ -252,12 +252,13 @@ def _run_repl(runtime, verbose: bool = True) -> None:
   .history     show emit log
   .echoes      show echo log
   .thresholds  show declared threshold constants
+  .types       show available types and builtins
   .help        show this message
 
   ── Multi-line input ──────────────────────────────────────────
-  resonate / struggle / journal / when / cycle / dialogue blocks
-  stay open until you type 'end'. The prompt shows '...' when
-  you're inside an open block.
+  resonate / struggle / journal / when / cycle / dialogue / each /
+  shelter blocks stay open until you type 'end'. The prompt shows
+  '...' when you're inside an open block.
 
   ── EQLang v0.5.0 quick reference ────────────────────────────
   session "name"                   declare session
@@ -358,6 +359,43 @@ def _run_repl(runtime, verbose: bool = True) -> None:
                     for name, val in interpreter.thresholds.items():
                         print(f"  {name} = {val:.4f}")
                     print()
+                continue
+            if stripped == ".types":
+                print("""
+  ── EQLang Types ────────────────────────────────────────────
+  number       42, 3.14, -1.0        (64-bit float internally)
+  string       "hello world"         (immutable, indexable)
+  list         [1, "a", [2, 3]]      (immutable, indexable)
+  map          {"k": v, "k2": v2}    (immutable, string keys)
+  nothing      nothing               (explicit absence)
+  boolean      1.0 = true, 0.0 = false (no boolean type)
+
+  ── Builtins ────────────────────────────────────────────────
+  Math (10):
+    min(a, b)  max(a, b)  clamp(x, lo, hi)  abs(x)  round(x)
+    sqrt(x)    pow(x, y)  floor(x)  ceil(x)  log(x)
+
+  String (13):
+    len(s)  str(x)  concat(a, b)  slice(s, start[, end])
+    find(s, sub)  replace(s, old, new)  split(s, delim)
+    join(list, delim)  upper(s)  lower(s)  trim(s)
+    starts_with(s, pre)  ends_with(s, suf)
+
+  Collection (8):
+    contains(col, item)  push(list, item)  pop(list)
+    range(start, end[, step])  sort(list)  reverse(list)
+    index_of(list, item)  flatten(list)
+
+  Map (3):
+    keys(map)  values(map)  has_key(map, key)
+
+  Type (7):
+    type(x)  is_nothing(x)  is_number(x)  is_string(x)
+    is_list(x)  is_map(x)  to_number(x)
+
+  Mutation (1):
+    set_at(col, key_or_idx, val) → returns new collection
+""")
                 continue
             if stripped == ".help":
                 _show_help()
