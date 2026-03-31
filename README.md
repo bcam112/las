@@ -286,7 +286,7 @@ Every language construct maps to a theoretical concept:
 
 Published research:
 - [Consciousness + Conflict Theory (C+CT)](https://philarchive.org/rec/BCCWIT) — PhilArchive, 2025
-- [The Luci Alignment Recursion Engine](https://philarchive.org/rec/CGTHRX) — PhilArchive, 2026
+- [The Human+ Recursion Engine](https://philarchive.org/rec/CGTHRX) — PhilArchive, 2026
 - [EQLM: Interleaved Dual Transformers with Syntax-Driven Alignment](https://doi.org/10.5281/zenodo.19337367) — Zenodo, 2026
 
 ---
