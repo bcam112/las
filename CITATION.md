@@ -40,6 +40,26 @@ https://philarchive.org/rec/CGTHRX
 }
 ```
 
+### EQLM Architecture Paper
+
+**APA Format:**
+```
+German, B. C. (2026). EQLM: Interleaved Dual Transformers with Syntax-Driven Alignment, Emotional Salience Gating, and Intuition-Based Wisdom Injection. Zenodo.
+https://doi.org/10.5281/zenodo.19337367
+```
+
+**BibTeX:**
+```bibtex
+@article{german2026eqlm,
+  title={EQLM: Interleaved Dual Transformers with Syntax-Driven Alignment, Emotional Salience Gating, and Intuition-Based Wisdom Injection},
+  author={German, Bryan Camilo},
+  year={2026},
+  publisher={Zenodo},
+  doi={10.5281/zenodo.19337367},
+  url={https://doi.org/10.5281/zenodo.19337367}
+}
+```
+
 ## Repository Citation
 
 If citing this repository:
@@ -65,6 +85,7 @@ https://github.com/bcam112/las
 
 - **C+CT Paper**: https://philarchive.org/rec/BCCWIT
 - **Luci Alignment Paper**: https://philarchive.org/rec/CGTHRX
+- **EQLM Paper**: https://doi.org/10.5281/zenodo.19337367
 - **Repository**: https://github.com/bcam112/las
 - **Website**: https://useluci.com
 

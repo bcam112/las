@@ -36,6 +36,7 @@ Repository = "https://github.com/bcam112/las"
 Documentation = "https://useluci.com/eqlang"
 Issues = "https://github.com/bcam112/las/issues"
 Theory = "https://philarchive.org/rec/BCCWIT"
+EQLM = "https://doi.org/10.5281/zenodo.19337367"
 
 [project.scripts]
 eqlang = "eqlang.__main__:main"

@@ -3,6 +3,7 @@
 [![ELO](https://img.shields.io/badge/EQ--Bench%203-1633%2B%20ELO-gold.svg)](https://eqbench.com)
 [![Paper](https://img.shields.io/badge/paper-C%2BCT-blue)](https://philarchive.org/rec/BCCWIT)
 [![Paper](https://img.shields.io/badge/paper-Validation-blue)](https://philarchive.org/rec/CGTHRX)
+[![Paper](https://img.shields.io/badge/paper-EQLM-blue)](https://doi.org/10.5281/zenodo.19337367)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![EQLang Core](https://img.shields.io/badge/EQLang%20Core-MIT-green.svg)](LICENSE)
 [![LAS Runtime](https://img.shields.io/badge/LAS%20Runtime-Proprietary-red.svg)](LICENSE)
@@ -28,7 +29,7 @@ Traditional AI bakes alignment into weights at training time. Luci Alignment mea
 | **EQLang** | Emotional Quotient Language — alignment scripting language | **MIT** |
 | **Luci Alignment** | Real-time C+CT state monitoring engine | Proprietary |
 | **M.I.N.** | Main Intuition Network — persistent experiential memory | Proprietary |
-| **LAS Runtime** | EQLang-native v7 alignment engine | Proprietary |
+| **LAS Runtime** | EQLang-native v8.2 alignment engine | Proprietary |
 | **API** | Service endpoints | Proprietary |
 
 ### Open Core Model
@@ -286,6 +287,7 @@ Every language construct maps to a theoretical concept:
 Published research:
 - [Consciousness + Conflict Theory (C+CT)](https://philarchive.org/rec/BCCWIT) — PhilArchive, 2025
 - [The Luci Alignment Recursion Engine](https://philarchive.org/rec/CGTHRX) — PhilArchive, 2026
+- [EQLM: Interleaved Dual Transformers with Syntax-Driven Alignment](https://doi.org/10.5281/zenodo.19337367) — Zenodo, 2026
 
 ---
 
@@ -330,6 +332,7 @@ Production runtimes with C+CT-grade measurements are available at [useluci.com](
 - **Website:** [useluci.com](https://useluci.com)
 - **EQLang Reference:** [useluci.com/eqlang](https://useluci.com/eqlang)
 - **C+CT Theory:** [philarchive.org/rec/BCCWIT](https://philarchive.org/rec/BCCWIT)
+- **EQLM Paper:** [doi.org/10.5281/zenodo.19337367](https://doi.org/10.5281/zenodo.19337367)
 - **Author:** Bryan Camilo German — bcam112@yahoo.com
 
 ---
